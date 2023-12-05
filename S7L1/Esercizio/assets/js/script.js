@@ -75,5 +75,78 @@ class Pet {
 
 
 document.querySelector('#richiestaAnimale button').addEventListener('click', () => {
-    let output = document.querySelectorAll('#')
+    let errore = 0
+    let inputUtente = document.querySelectorAll('#richiestaAnimale .form-control, #richiestaAnimale .form-select');
+    console.log(inputUtente);
+
+    let petNameError = document.querySelector('#petNameError');
+    let ownerNameError = document.querySelector('#ownerNameError');
+    let speciesError = document.querySelector('#speciesError');
+    let razzaError = document.querySelector('#razzaError');
+
+
+    let nomeCane = inputUtente[0].value;
+    let nomeOwner = inputUtente[1].value;
+    let tipoAnimale = inputUtente[2].value;
+    let razzaCane = inputUtente[3].value;
+
+    console.log(razzaCane);
+
+    if (nomeCane.length < 3) {
+        petNameError.textContent = "The PET name must be at least 3 characters long";
+        errore++;
+    } else {
+        petNameError.textContent = '';
+    }
+
+    if (nomeOwner.length < 3) {
+        ownerNameError.textContent = "The OWNER name must be at least 3 characters long";
+        errore++;
+    } else {
+        ownerNameError.textContent = '';
+    }
+
+    if (tipoAnimale === "Choose Species...") {
+        speciesError.textContent = "Please select a species";
+        errore++;
+    } else {
+        speciesError.textContent = '';
+    }
+
+    if (razzaCane === "Choose Razza...") {
+        razzaError.textContent = "Please select a razza";
+        errore++;
+    } else {
+        speciesError.textContent = '';
+    }
+
+    // Se c'è un errore allora esci dalla funzione
+    if(errore != 0) {return;}
+
+
+
+    let nuovopet = new Pet(nomeCane, nomeOwner, tipoAnimale, razzaCane);
+    aggiungiAllaLista(nuovopet);
+
+    nuovopet[0].value = '';
+    nuovopet[1].value = '';
+    nuovopet[2].value = '';
+    nuovopet[3].value = '';
 })
+
+function aggiungiAllaLista(animale) {
+    let ol = document.querySelector('#risultati ol')
+
+    let newLi = document.createElement('li')
+    newLi.classList = 'list-group-item d-flex justify-content-between align-items-start'
+    newLi.innerHTML = `
+            <div class="ms-2 me-auto">
+            <div class="fw-bold">Name: ${animale.petName}</div>
+                Owner: ${animale.ownerName}<br>
+                Type: ${animale.breed}
+            </div>
+            <span class="badge bg-primary rounded-pill">${animale.species}</span>
+    `
+    
+    ol.appendChild(newLi);
+}
