@@ -18,7 +18,6 @@ rimuoviInput()
 contatore()
 addToListButton()
 checkBloccoLista()
-rimuoviToDo()
 
 
 function checkNameDescription() {
@@ -120,14 +119,17 @@ function checkBloccoLista() {
             console.log("ciao dentro"); 
         }
     }
+    rimuoviToDo()
 }
 
 function rimuoviToDo() {
     console.log("rimozione pronta");
     document.querySelectorAll('.ciaone').forEach(elemento => {
-        elemento.addEventListener('click', () => {
-            // Codice da eseguire quando l'elemento viene cliccato
-            console.log('Elemento cliccato!');
+        elemento.addEventListener('click', (e) => {
+            // console.log(e.target.id);
+            localStorage.removeItem(e.target.id)
+            checkBloccoLista()
+
         });
     });
 }
