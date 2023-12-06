@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="tutto d-flex align-content-center justify-content-between">
@@ -21,6 +21,26 @@
         <div id="contatore">
             <span class="d-flex h1 me-5 mt-1"></span>
         </div>
+    </div>
+    <div id="todolist" class="container">
+        <h2 class="m-3">Ecco la tua TO DO LIST:</h2>
+        <div class="todo w-50 mb-3 d-flex ">
+            <input type="text" class="form-control mt-3 mx-3 col-8" id="toAggiungi" placeholder="Add somethings...">
+            <button type="submit" id="bottoneToDo" class="btn btn-primary mt-3 col-4">Add to List</button>
+            <!-- <button type="button" class="btn btn-outline-primary">Primary</button> -->
+            <!-- <button type="button" id="bottoneToDo" class="btn btn-primary px-5 pt-0">Add</button> -->
+        </div>
+        <div class="boxToDo container">
+            <ol id="olPrincipale" class="list-group list-group-numbered">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Test 1</div>
+                  </div>
+                  <span class="badge bg-primary rounded-pill"><i class="bi bi-trash3"></i></span>
+                </li>
+              </ol>
+        </div>
+
     </div>
 
 

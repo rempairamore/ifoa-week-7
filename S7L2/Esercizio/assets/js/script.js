@@ -16,6 +16,9 @@ checkNameDescription()
 prendiInput()
 rimuoviInput()
 contatore()
+addToListButton()
+checkBloccoLista()
+rimuoviToDo()
 
 
 function checkNameDescription() {
@@ -71,4 +74,60 @@ function aumentaContatore() {
     spanContatore.innerText = risultatoSecondi
 }
 
+function addToListButton() {
+    document.querySelector('#bottoneToDo').addEventListener('click', () => {
+        let testoDentroInput = document.querySelector('#toAggiungi').value
+        // console.log(testoDentroInput);
+        let bloccoHTML = document.createElement('li')
+        let numeroStorage = "blocco" + (localStorage.length + 1);
+        bloccoHTML.classList = 'list-group-item d-flex justify-content-between align-items-start'
+        bloccoHTML.innerHTML = `
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">${testoDentroInput}</div>
+                </div>
+                <span class="badge bg-primary rounded-pill"><i class="bi bi-trash3 ciaone p-3" id="${numeroStorage}" ></i></span>
+            `
+        // document.querySelector('#olPrincipale').appendChild(bloccoHTML)
+        document.querySelector('#toAggiungi').value = '';
+        addToStorage(bloccoHTML.innerHTML);
 
+    })
+
+}
+
+function addToStorage(blocco) {
+    let numeroStorage = "blocco" + (localStorage.length + 1);
+    localStorage.setItem(numeroStorage,blocco)
+    checkBloccoLista()
+
+}
+
+function checkBloccoLista() {
+    let olPrincipale = document.querySelector('#olPrincipale');
+    while (olPrincipale.firstChild) {
+        olPrincipale.removeChild(olPrincipale.firstChild);
+        console.log("ciao");
+    }
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (key.startsWith('blocco')) {
+            // Fai qualcosa con localStorage.getItem(key)
+            let bloccoLi = document.createElement('li')
+            bloccoLi.classList = 'list-group-item d-flex justify-content-between align-items-start'
+
+            bloccoLi.innerHTML = localStorage.getItem(key)
+            document.querySelector('#olPrincipale').appendChild(bloccoLi)
+            console.log("ciao dentro"); 
+        }
+    }
+}
+
+function rimuoviToDo() {
+    console.log("rimozione pronta");
+    document.querySelectorAll('.ciaone').forEach(elemento => {
+        elemento.addEventListener('click', () => {
+            // Codice da eseguire quando l'elemento viene cliccato
+            console.log('Elemento cliccato!');
+        });
+    });
+}
