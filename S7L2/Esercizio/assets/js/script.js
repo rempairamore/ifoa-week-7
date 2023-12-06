@@ -66,7 +66,6 @@ function contatore() {
 
 
 function aumentaContatore() {
-    let secondoAttuale = Date.now();
     let risultatoSecondi = Math.floor(Date.now() / 1000) - sessionStorage.getItem('tempoInizio');
     let spanContatore = document.querySelector('#contatore span')
     spanContatore.innerText = risultatoSecondi
