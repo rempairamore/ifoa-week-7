@@ -1,0 +1,28 @@
+@import "override-bootstrap";
+
+@import "functions";
+@import "variables";
+@import "mixins";
+
+// mio codice custom
+header h1, header i {
+    font-size: 2.5em;
+    color: rgb(167, 14, 14)
+}
+
+.card-text {
+    font-size: 1.6em;
+}
+
+#contenitoreLocandine .badge {
+    max-height: 1.8em;
+    margin-left: 0.4em;
+    padding: 0.5em;
+}
+
+.spanOnCart {
+    font-weight: 600;
+    color: rgb(31, 221, 31);
+    display: flex;
+    justify-content: center;
+}

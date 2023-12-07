@@ -29,3 +29,8 @@ Temporary Items
 *.tmp
 *.swp
 *.swo
+*.vsix
+
+#bootmerd
+
+node_modules/
