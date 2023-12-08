@@ -66,9 +66,8 @@ header i {
   min-height: 60%;
 }
 
-.nav-link .badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(-160%, 160%);
+#badgeCarrello {
+  top: -24px;
+  right: 15px;
+  font-size: 0.8em;
 }

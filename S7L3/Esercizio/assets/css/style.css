@@ -11855,7 +11855,8 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-header h1, header .h1, header i {
+header h1, header .h1,
+header i {
   font-size: 2.5em;
   color: rgb(167, 14, 14);
 }
@@ -11908,4 +11909,10 @@ header h1, header .h1, header i {
   z-index: 1;
   max-height: 60%;
   min-height: 60%;
+}
+
+#badgeCarrello {
+  top: -24px;
+  right: 15px;
+  font-size: 0.8em;
 }/*# sourceMappingURL=style.css.map */
