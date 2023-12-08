@@ -11893,14 +11893,14 @@ header i {
 }
 
 .card {
-  position: relative; /* Imposta il contenitore della card come riferimento per il posizionamento assoluto */
+  position: relative;
 }
 
 .card .badge {
-  position: absolute; /* Posiziona lo span in modo assoluto */
-  top: -1px; /* Regola questi valori secondo le tue esigenze */
+  position: absolute;
+  top: -1px;
   right: 176px;
-  z-index: 2; /* Imposta lo z-index per sovrapporre lo span all'immagine */
+  z-index: 2;
 }
 
 .card img.card-img-top {

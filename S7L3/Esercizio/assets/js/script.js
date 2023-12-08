@@ -24,10 +24,14 @@ arrayStorageOnLoad()
 function createList(oggetto) {
     let carrelloJson = localStorage.getItem('carrello');
     let carrelloArray = JSON.parse(carrelloJson)
-    console.log(carrelloArray)
+    let eliminateJson = localStorage.getItem('eliminate');
+    let eliminateArray = JSON.parse(eliminateJson);
+    // console.log(carrelloArray)
     oggetto.forEach((element, index) => {
-        // console.log("HELLO" + element.asin)
         let stringaCercare = index.toString()
+        if(eliminateArray.includes(stringaCercare)) {
+            return;
+        }
         if(carrelloArray.includes(stringaCercare)) {
             // console.log("NAPOLI")
             let divCard = document.createElement('div');
@@ -87,11 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         // console.log(e.target.className);
         if(e.target.className == 'btn btn-danger') {
-            // console.log(e.target);
+            let arrayEliminateJson = localStorage.getItem('eliminate');
+            let objEliminate = JSON.parse(arrayEliminateJson)
+            objEliminate.push(e.target.parentNode.parentNode.childNodes[5].innerText.toString());
+            arrayEliminateJson = JSON.stringify(objEliminate)
+            localStorage.setItem('eliminate', arrayEliminateJson)
+            // console.log(arrayEliminate);
             let divContenitoreLocandine = document.querySelector('#contenitoreLocandine')
             let parent = e.target.parentNode.parentNode.parentNode.parentNode;
             // console.log(parent);
             divContenitoreLocandine.removeChild(parent)
+            console.log("cancellato");
         }
         if(e.target.className == 'btn btn-success') {
             // console.log(e.target.parentNode);
@@ -149,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('#refreshLocalStorage').addEventListener('click', () => {
         localStorage.removeItem('carrello')
+        localStorage.removeItem('eliminate')
     })
 
 })
@@ -162,6 +173,12 @@ function arrayStorageOnLoad() {
             localStorage.setItem('carrello', arrayCarrello)
         } else {
             // aggiornamentoCarrello()
+        }
+        if(localStorage.getItem('eliminate') === null) {
+            let arrayEliminato = [];
+            arrayEliminato = JSON.stringify(arrayEliminato);
+            localStorage.setItem('eliminate', arrayEliminato)
+
         }
     })
 }
