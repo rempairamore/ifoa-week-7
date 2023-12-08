@@ -22,32 +22,65 @@ arrayStorageOnLoad()
 
 // Funzioni
 function createList(oggetto) {
-
+    let carrelloJson = localStorage.getItem('carrello');
+    let carrelloArray = JSON.parse(carrelloJson)
+    console.log(carrelloArray)
     oggetto.forEach((element, index) => {
-        let divCard = document.createElement('div');
-        divCard.classList = 'col d-flex align-items-stretch';
-        divCard.innerHTML = `
-        <div class="card h-100">
-          <span class="badge bg-warning text-white rounded-pill my-2 d-flex align-items-center justify-content-center">${element.category}</span>
-          <img src="${element.img}" class="card-img-top" alt="book_picture">
-          <div class="card-body  d-flex flex-column justify-content-between">
-            <h5 class="card-title">${element.title}</h5>
-            <span class="asin" style="display: none;">${element.asin}</span>
-            <span class="indexNumber" style="display: none;">${index}</span>
-            <p class="card-text text-center">${element.price}\$</p>
-            <div class="contBtn d-flex justify-content-around">
-              <a href="#" class="btn btn-success">Add to Cart</a>
-              <a href="#" class="btn btn-danger">Remove</a>
-            </div>
-          </div>
-        </div>`
-        let divContenitoreLocandine = document.querySelector('#contenitoreLocandine')
-        divContenitoreLocandine.appendChild(divCard) 
+        // console.log("HELLO" + element.asin)
+        let stringaCercare = index.toString()
+        if(carrelloArray.includes(stringaCercare)) {
+            // console.log("NAPOLI")
+            let divCard = document.createElement('div');
+            divCard.classList = 'col d-flex align-items-stretch';
+            divCard.innerHTML = `
+            <div class="card h-100" style="border: 3px solid green; border-radius: 10px;">
+              <span class="badge bg-warning text-white rounded-pill my-2 d-flex align-items-center justify-content-center">${element.category}</span>
+              <img src="${element.img}" class="card-img-top" alt="book_picture" style="filter: grayscale(100%);">
+              <div class="card-body  d-flex flex-column justify-content-between">
+                <h5 class="card-title">${element.title}</h5>
+                <span class="asin" style="display: none;">${element.asin}</span>
+                <span class="indexNumber" style="display: none;">${index}</span>
+                <p class="card-text text-center">${element.price}\$</p>
+                <span class="spanOnCart" >Already on Cart</span>
+                </div>
+              </div>
+            </div>`
+            let divContenitoreLocandine = document.querySelector('#contenitoreLocandine')
+            divContenitoreLocandine.appendChild(divCard)  
+        } else {
+            let divCard = document.createElement('div');
+            divCard.classList = 'col d-flex align-items-stretch';
+            divCard.innerHTML = `
+            <div class="card h-100">
+              <span class="badge bg-warning text-white rounded-pill my-2 d-flex align-items-center justify-content-center">${element.category}</span>
+              <img src="${element.img}" class="card-img-top" alt="book_picture">
+              <div class="card-body  d-flex flex-column justify-content-between">
+                <h5 class="card-title">${element.title}</h5>
+                <span class="asin" style="display: none;">${element.asin}</span>
+                <span class="indexNumber" style="display: none;">${index}</span>
+                <p class="card-text text-center">${element.price}\$</p>
+                <div class="contBtn d-flex justify-content-around">
+                  <a href="#" class="btn btn-success">Add to Cart</a>
+                  <a href="#" class="btn btn-danger">Remove</a>
+                </div>
+              </div>
+            </div>`
+            let divContenitoreLocandine = document.querySelector('#contenitoreLocandine')
+            divContenitoreLocandine.appendChild(divCard)  
+        }
+
     });
+    
     aggiornamentoCarrello()
 
 }
 
+
+function createListRefresh() {
+    let divContenitoreLocandine = document.querySelector('#contenitoreLocandine');
+    divContenitoreLocandine.innerHTML = ''
+    createList(obj)
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#contenitoreLocandine').addEventListener('click', (e) => {
@@ -67,8 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // console.log(indexNumber);
             let bottoni = e.target.parentNode;
             let card = e.target.parentNode.parentNode.parentNode;
-            card.style.border = '3px solid green'
-            bottoni.className = ''
+            card.style.border = '3px solid green';
+            card.style.borderRadius = '10px';
+            card.childNodes[3].style.filter = 'grayscale(100%)';
+            bottoni.className = '';
             // bottoni.style.display = 'none'
             bottoni.innerHTML = `<span class="spanOnCart" >Already on Cart</span>`
             let arrayJson = localStorage.getItem('carrello');
@@ -81,6 +116,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     })
+
+    document.querySelector('#offcanvasRight').addEventListener('click', (e) => {
+        e.preventDefault();
+        if(e.target.className == 'btn btn-danger') {
+            let idLocandinaRimossa = e.target.parentNode.childNodes[7].innerText.toString()
+            console.log(idLocandinaRimossa);
+            let contenitoreCarrello = e.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+            let parent = e.target.parentNode.parentNode.parentNode.parentNode;
+            // console.log(parent);
+            contenitoreCarrello.removeChild(parent)
+            let arrayJson = localStorage.getItem('carrello');
+            let objArray = JSON.parse(arrayJson)
+            
+            let newOBJ = objArray.filter(e => e !== idLocandinaRimossa)
+            
+            arrayJson = JSON.stringify(newOBJ)
+            localStorage.setItem('carrello', arrayJson)
+            console.log(arrayJson)
+            aggiornamentoCarrello()
+        }
+    })
+
+    //Con questo event listener controllo quando viene chiuso il carrello
+    document.querySelector('#offcanvasRight').addEventListener('hidden.bs.offcanvas', function () {
+        createListRefresh()
+
+    });
+
+    updateCartCount()
+
+
+    document.querySelector('#refreshLocalStorage').addEventListener('click', () => {
+        localStorage.removeItem('carrello')
+    })
+
 })
 
 
@@ -120,6 +190,7 @@ function aggiornamentoCarrello() {
                               <h5 class="card-title">${obj[elemento].title}</h5>
                               <p class="card-text"><small class="text-body-secondary">${obj[elemento].price}\$</small></p>
                               <a href="#" class="btn btn-danger">Remove</a>
+                              <span style="display: none;">${elemento}</span>
                             </div>
                           </div>
                         </div>`
@@ -132,10 +203,21 @@ function aggiornamentoCarrello() {
         let totaltDiv = document.createElement('div')
         totaltDiv.innerHTML = `<span class="h4 m-3">Gross Total: ${priceTotalFormatted}\$</span>`
         carrelloPrincipale.appendChild(totaltDiv)
+        let bottoneCheckOut = document.createElement('div')
+        bottoneCheckOut.innerHTML = '<a href="#" class="btn btn-success m-3 px-4">Checkout <i class="bi bi-bag-heart bi-sm text-white" style="font-size: 1.5em;"></i></a>'
+        carrelloPrincipale.appendChild(bottoneCheckOut)
     } else {
         let totaltDiv = document.createElement('div')
         totaltDiv.innerHTML = `<span class="h6 m-3 mt-6">Cart is Empty</span>`
         carrelloPrincipale.appendChild(totaltDiv)
     }
+    updateCartCount()
 
 }
+
+function updateCartCount() {
+    let arrayJson = localStorage.getItem('carrello');
+    let objArray = JSON.parse(arrayJson) 
+    let badgeCart = document.querySelector('#badgeCarrello')
+    badgeCart.innerText = objArray.length;
+  }

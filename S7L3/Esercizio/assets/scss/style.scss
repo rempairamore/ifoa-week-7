@@ -5,64 +5,70 @@
 @import "mixins";
 
 // mio codice custom
-header h1, header i {
-    font-size: 2.5em;
-    color: rgb(167, 14, 14)
+header h1,
+header i {
+  font-size: 2.5em;
+  color: rgb(167, 14, 14);
 }
 
 .card-text {
-    font-size: 1.6em;
+  font-size: 1.6em;
 }
 
 #contenitoreLocandine .badge {
-    max-height: 1.8em;
-    padding: 1.1em;
-    // position: relative;
-    // top: 42px;
-    // right: -3px;
-    // z-index: 20;
-    
+  max-height: 1.8em;
+  padding: 1.1em;
+  // position: relative;
+  // top: 42px;
+  // right: -3px;
+  // z-index: 20;
 }
 
 .spanOnCart {
-    font-weight: 600;
-    color: rgb(31, 221, 31);
-    display: flex;
-    justify-content: center;
+  font-weight: 600;
+  color: rgb(31, 221, 31);
+  display: flex;
+  justify-content: center;
 }
 
 .card-deck {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
 
 .card img {
-    // height: 60%;
-    object-fit: cover;    
+  // height: 60%;
+  object-fit: cover;
 }
 
 .card-title {
-    font-weight: 200;
-    font-size: 1.1em;
+  font-weight: 200;
+  font-size: 1.1em;
 }
 
 .card {
-    position: relative; /* Imposta il contenitore della card come riferimento per il posizionamento assoluto */
-  }
-  
-  .card .badge {
-    position: absolute; /* Posiziona lo span in modo assoluto */
-    top: -1px; /* Regola questi valori secondo le tue esigenze */
-    right: 176px;
-    z-index: 2; /* Imposta lo z-index per sovrapporre lo span all'immagine */
-  }
-  
-  .card img.card-img-top {
-    width: 100%;
-    height: auto;
-    z-index: 1;
-    max-height: 60%;
-    min-height: 60%;
-  }
-  
+  position: relative; /* Imposta il contenitore della card come riferimento per il posizionamento assoluto */
+}
+
+.card .badge {
+  position: absolute; /* Posiziona lo span in modo assoluto */
+  top: -1px; /* Regola questi valori secondo le tue esigenze */
+  right: 176px;
+  z-index: 2; /* Imposta lo z-index per sovrapporre lo span all'immagine */
+}
+
+.card img.card-img-top {
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  max-height: 60%;
+  min-height: 60%;
+}
+
+.nav-link .badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-160%, 160%);
+}
